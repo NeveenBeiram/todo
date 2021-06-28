@@ -53,6 +53,23 @@ const deleteItem=(id)=>{
     setList(nList);
 }
 
+const editor = (text , id)=>{
+  let item = list.filter ((item)=> item._id === id)[0] || {}
+  if (item) {
+    item.text = text;
+    let list5 = list.map (itm =>{
+      if (itm._id === id ){
+        return item 
+      }else {
+        return itm
+      }
+    })
+    setList (list5)
+  }
+ 
+ 
+  }
+
 
 
   useEffect(()=>{
@@ -90,7 +107,7 @@ const deleteItem=(id)=>{
               list={list}
               handleComplete={toggleComplete}
               deleteItem={deleteItem}
-              
+              editor={editor}
             />
           </div>
         </section>

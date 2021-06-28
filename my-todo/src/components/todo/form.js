@@ -1,5 +1,8 @@
 import React ,{useState} from 'react';
 
+import  { Button } from 'react-bootstrap';
+import { Form} from  'react-bootstrap'
+
 function TodoForm (props) {
 
 //   constructor(props) {
@@ -25,27 +28,38 @@ const [item,setItem]=useState({});
     return (
       <>
         <h3>Add Item</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="f">
+            <Form.Label>
             <span>To Do Item</span>
-            <input
-              name="text"
+<Form.Control  name="text"
               placeholder="Add To Do List Item"
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
+              onChange={handleInputChange}/>
+            </Form.Label>
+          </Form.Group>
+         
+        <Form.Group controlId="f">
+          <Form.Label>
             <span>Difficulty Rating</span>
-            <input defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} required/>
-          </label>
-          <label>
+<Form.Control variant="info" defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} required/>
+          </Form.Label>
+        </Form.Group>
+          
+          <Form.Group controlId="f">
+            <Form.Label>
             <span>Assigned To</span>
-            <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange}required />
-          </label>
+<Form.Control type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange}required/>
+            </Form.Label>
+          </Form.Group>
+         
+         <Form.Group controlId="f">
+           <Form.Label>
           <span>Due Date</span>
-          <input type='date' name="dueDate" placeholder="Due Date" onChange={handleInputChange}required/>
-          <button>Add Item</button>
-        </form>
+<Form.Control type='date' name="dueDate" placeholder="Due Date" onChange={handleInputChange}required/>
+           </Form.Label>
+         </Form.Group>
+         <Button variant="secondary">Add Item</Button>
+  </Form>
       </>
     );
   }
