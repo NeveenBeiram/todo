@@ -1,7 +1,7 @@
 import React ,{useState} from 'react';
 
 import  { Button } from 'react-bootstrap';
-import { Form} from  'react-bootstrap'
+import { Form} from  'react-bootstrap';
 
 function TodoForm (props) {
 
@@ -58,7 +58,7 @@ const [item,setItem]=useState({});
 <Form.Control type='date' name="dueDate" placeholder="Due Date" onChange={handleInputChange}required/>
            </Form.Label>
          </Form.Group>
-         <Button variant="secondary" type="submit">Add Item</Button>
+         <Button variant="outline-success" type="submit">Add Item</Button>
   </Form>
       </>
     );
