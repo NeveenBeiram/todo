@@ -1,7 +1,8 @@
-import React ,{useState} from 'react';
+import React from 'react';
 
 import  { Button } from 'react-bootstrap';
 import { Form} from  'react-bootstrap';
+import useForm from './formHook';
 
 function TodoForm (props) {
 
@@ -9,26 +10,17 @@ function TodoForm (props) {
 //     super(props);
 //     this.state = { item: {} };
 //   }
-const [item,setItem]=useState({});
 
-  const handleInputChange = e => {
-    setItem({...item, [e.target.name]: e.target.value });
-  };
+const [handleInputChange,handleSubmit]=useForm(callBack);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.target.reset();
-    props.handleSubmit(item);
-    const newItem = {};
-    // this.setState({item});
-    setItem(newItem)
-  };
-
+function callBack (item){
+props.handleSubmit(item);
+}
 
     return (
       <>
-        <h3>Add Item</h3>
-        <Form onSubmit={handleSubmit}>
+        <Form style={{"marginRight":"40px",'box-shadow': '0 4px 5px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.12)',"padding":"50px"}} onSubmit={handleSubmit}>
+        <h3 style={{"marginBottom":"50px"}}>Add Item</h3>
           <Form.Group controlId="f">
             <Form.Label>
             <span>To Do Item</span>
@@ -52,13 +44,13 @@ const [item,setItem]=useState({});
             </Form.Label>
           </Form.Group>
          
-         <Form.Group controlId="f">
+         {/* <Form.Group controlId="f">
            <Form.Label>
           <span>Due Date</span>
 <Form.Control type='date' name="dueDate" placeholder="Due Date" onChange={handleInputChange}required/>
            </Form.Label>
-         </Form.Group>
-         <Button variant="outline-success" type="submit">Add Item</Button>
+         </Form.Group> */}
+         <Button variant="info" style={{width:"50%"}} type="submit">Add Item</Button>
   </Form>
       </>
     );
