@@ -4,6 +4,8 @@ import  { Button } from 'react-bootstrap';
 import { Form} from  'react-bootstrap';
 import useForm from './formHook';
 
+import ContentSetting from './Settings.jsx';
+
 function TodoForm (props) {
 
 //   constructor(props) {
@@ -52,6 +54,7 @@ props.handleSubmit(item);
          </Form.Group> */}
          <Button variant="info" style={{width:"50%"}} type="submit">Add Item</Button>
   </Form>
+  <ContentSetting />
       </>
     );
   }
