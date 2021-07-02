@@ -2,7 +2,7 @@ import React from 'react';
 import If from './if';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { Badge, Toast } from 'react-bootstrap';
+import { Badge, Toast ,Form} from 'react-bootstrap';
 
 import { SettingsContext } from './setting-context';
 import { Pagination } from 'react-bootstrap'
@@ -13,6 +13,7 @@ function TodoList(props) {
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState('');
 
+  let list=props.list;//
 
   const context = useContext(SettingsContext)
 
@@ -20,10 +21,67 @@ function TodoList(props) {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const numOfPages = props.list.length / maxItems + 1;
+if(context.finished){
+  list =list.filter((task)=>!task.complete);
+}//
+
+  // let numOfPages = props.list.length / maxItems + 1;
   const last = currentPage * context.itemPerPage;
   const first = last - context.itemPerPage;
-  const currentTasks = props.list.slice(first, last);
+
+
+  // const currentTasks = props.list.slice(first, last);
+if(context.sortType==='descending'){
+  if(context.sortBy==='difficulty'){
+    list.sort((a,b)=>{
+      if(a.difficulty> b.difficulty)return -1;
+      else if(a.difficulty< b.difficulty)return 1;
+      else if(a.difficulty===b.difficulty)return 0;
+    })
+  }else if(context.sortBy==='assignee'){
+    list.sort((a,b)=>{
+      if(a.text.toLowerCase() > b.text.toLowerCase())return -1
+      else if (a.text.toLowerCase() < b.text.toLowerCase() ) return 1
+      else if (a.text.toLowerCase()  === b.text.toLowerCase() ) return 0
+    })
+  }
+  else if (context.sortBy === 'text'){
+    list.sort ((a,b)=> {
+        if (a.text.toLowerCase()  > b.text.toLowerCase() ) return -1
+        else if (a.text.toLowerCase() < b.text.toLowerCase() ) return 1
+        else if (a.text.toLowerCase()  === b.text.toLowerCase() ) return 0
+    })
+  }
+}
+else if (context.sortType === 'ascending'){
+  if (context.sortBy === 'difficulty'){
+    list.sort ((a,b)=> {
+      if (a.difficulty && b.difficulty){
+        if (a.difficulty > b.difficulty) return 1
+        else if (a.difficulty < b.difficulty) return -1
+        else if (a.difficulty === b.difficulty) return 0
+      }
+    })
+  }
+  else if (context.sortBy === 'assignee'){
+    list.sort ((a,b)=> {
+        if (a.assignee.toLowerCase()  > b.assignee.toLowerCase() ) return 1
+        else if (a.assignee.toLowerCase() < b.assignee.toLowerCase() ) return -1
+        else if (a.assignee.toLowerCase()  === b.assignee.toLowerCase() ) return 0
+    })
+  }
+  else if (context.sortBy === 'text'){
+    list.sort ((a,b)=> {
+        if (a.text.toLowerCase()  > b.text.toLowerCase() ) return 1
+        else if (a.text.toLowerCase() < b.text.toLowerCase() ) return -1
+        else if (a.text.toLowerCase()  === b.text.toLowerCase() ) return 0
+    })
+  }
+}
+
+let currentTasks = list.slice(first, last);//
+let numOfPages =currentTasks.length / maxItems + 1;//
+context.setTaskSum(list.length);//
 
   let active = currentPage;
   let items = [];
@@ -56,6 +114,7 @@ function TodoList(props) {
           className={`complete-${item.complete.toString()}`}
           key={item._id}
           onClose={() => props.deleteItem(item._id)}
+          value={item._id}
         >
           <Toast.Header>
             <Badge pill variant={item.complete ? 'danger' : 'success'} > {item.complete ? 'completed' : 'pending'} </Badge>{' '}
@@ -75,14 +134,15 @@ function TodoList(props) {
         </Toast>
       ))}
 
-      <Pagination>
-        <Pagination.Prev disabled={active === 1 ? true : false}
+
+      <Pagination size="sm">
+        <Pagination.Prev size="sm" disabled={active === 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage - 1);
           }}
         />
         {items}
-        <Pagination.Next disabled={active > numOfPages - 1 ? true : false}
+        <Pagination.Next size="sm" disabled={active > numOfPages - 1 ? true : false}
           onClick={() => {
             setCurrentPage(currentPage + 1);
           }}
@@ -90,13 +150,13 @@ function TodoList(props) {
       </Pagination>
 
       <If condition={flag}>
-        <form onSubmit={editor}>
-          <label>
+        <Form onSubmit={editor}>
+          <Form.Label>
             <span>Edit Task</span>
             <input type="text" name="text" />
-          </label>
-          <button type="submit">Submit Edit</button>
-        </form>
+          </Form.Label>
+          <Button variant="outline-secondary" type="submit">Submit Edit</Button>
+        </Form>
       </If>
     </>
 
