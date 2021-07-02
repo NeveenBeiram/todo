@@ -80,11 +80,13 @@ else if (context.sortType === 'ascending'){
 }
 
 let currentTasks = list.slice(first, last);//
-let numOfPages =currentTasks.length / maxItems + 1;//
+let numOfPages = props.list.length / maxItems + 1;//
 context.setTaskSum(list.length);//
+// console.log('current',currentTasks.length,'list',props.list.length);
 
   let active = currentPage;
   let items = [];
+  // console.log('numOfPage',numOfPages,'active',active);
   for (let number = 1; number <= numOfPages; number++) {
     items.push(
       <Pagination.Item key={number} active={number === active}>
