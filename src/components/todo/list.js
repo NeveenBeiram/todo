@@ -80,7 +80,7 @@ else if (context.sortType === 'ascending'){
 }
 
 let currentTasks = list.slice(first, last);//
-let numOfPages = props.list.length / maxItems + 1;//
+let numOfPages = list.length / maxItems ;//
 context.setTaskSum(list.length);//
 // console.log('current',currentTasks.length,'list',props.list.length);
 
