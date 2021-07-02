@@ -67,11 +67,11 @@ const useAjax = () => {
 
         if (item) {
           item.text = text;
-          list.map (itm =>{
-            if (itm._id === id ){
+          list.map (itemE =>{
+            if (itemE._id === id ){
               return item 
             }else {
-              return itm
+              return itemE
             }
           })
         const url2 = `${todoAPI}/${item._id}`

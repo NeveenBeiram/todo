@@ -4,6 +4,7 @@ import TodoList from './list.js';
 
 import './todo.scss';
 
+
 function ToDo (props) {
 
 //   constructor(props) {
@@ -57,14 +58,14 @@ const editor = (text , id)=>{
   let item = list.filter ((item)=> item._id === id)[0] || {}
   if (item) {
     item.text = text;
-    let list5 = list.map (itm =>{
+    let listE = list.map (itm =>{
       if (itm._id === id ){
         return item 
       }else {
         return itm
       }
     })
-    setList (list5)
+    setList (listE)
   }
  
  

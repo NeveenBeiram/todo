@@ -4,7 +4,7 @@ import  { Button } from 'react-bootstrap';
 import { Form} from  'react-bootstrap';
 import useForm from './formHook';
 
-import ContentSetting from './Settings.jsx';
+// import ContentSetting from './Settings.jsx';
 
 function TodoForm (props) {
 
@@ -21,14 +21,12 @@ props.handleSubmit(item);
 
     return (
       <>
-        <Form style={{"marginRight":"40px",'box-shadow': '0 4px 5px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.12)',"padding":"50px"}} onSubmit={handleSubmit}>
+        <Form style={{"marginRight":"40px",'box-shadow': '0 4px 5px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.12)',"width":"250px","padding":"50px"}} onSubmit={handleSubmit}>
         <h3 style={{"marginBottom":"50px"}}>Add Item</h3>
           <Form.Group controlId="f">
             <Form.Label>
-            <span>To Do Item</span>
-<Form.Control  name="text"
-              placeholder="Add To Do List Item"
-              onChange={handleInputChange}/>
+            <span>Item description</span>
+<Form.Control  name="text" placeholder="Add To Do List Item"onChange={handleInputChange}/>
             </Form.Label>
           </Form.Group>
          
@@ -54,7 +52,7 @@ props.handleSubmit(item);
          </Form.Group> */}
          <Button variant="info" style={{width:"50%"}} type="submit">Add Item</Button>
   </Form>
-  <ContentSetting />
+  {/* <ContentSetting /> */}
       </>
     );
   }

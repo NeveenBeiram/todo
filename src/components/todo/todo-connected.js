@@ -4,6 +4,8 @@ import TodoList from './list.js';
 import useAjax from './ajax';
 import {Badge} from 'react-bootstrap';
 
+import ContentSetting from './Settings.jsx';//
+
 import './todo.scss';
 
 // const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
@@ -26,7 +28,7 @@ return (
       <header>
        <h2>
         <Badge variant="dark"  style={{'width': '96%' ,'margin' : '2%' , 'boarder-radios' : 'none' , 'padding' : '20px 30px' , 'text-align' : 'left'}}>
-          There are {list.filter(item => !item.complete).length} Items To Complete
+          There are {list.filter(item => !item.complete).length} Items not completed
         </Badge>
         </h2>
       </header>
@@ -36,7 +38,11 @@ return (
         <div>
           <TodoForm handleSubmit={_addItem} />
         </div>
-
+{/*  */}
+        <div>
+          <ContentSetting />
+        </div>
+{/*  */}
         <div>
           <TodoList
             list={list}
