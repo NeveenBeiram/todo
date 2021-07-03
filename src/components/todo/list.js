@@ -9,12 +9,17 @@ import { Pagination } from 'react-bootstrap'
 
 import { useContext } from 'react';
 
+
+import Acl from './acl.jsx'
+import { AuthContext } from './auth-context';
+
 function TodoList(props) {
+  const authContext = useContext (AuthContext)
   const [flag, setFlag] = useState(false);
   const [id, setId] = useState('');
-
+  
   let list=props.list;//
-
+  
   const context = useContext(SettingsContext)
 
   const maxItems = context.itemPerPage;
@@ -115,7 +120,7 @@ context.setTaskSum(list.length);//
         <Toast
           className={`complete-${item.complete.toString()}`}
           key={item._id}
-          onClose={() => props.deleteItem(item._id)}
+          onClose={() => authContext.user.capabilities.includes('delete')? props.deleteItem(item._id): false}
           value={item._id}
         >
           <Toast.Header>
@@ -123,7 +128,8 @@ context.setTaskSum(list.length);//
             <strong className="mr-auto" style={{ 'margin-left': '20px' }}>{item.assignee}</strong>
           </Toast.Header>
 
-          <Toast.Body onClick={() => props.handleComplete(item._id)}>
+
+          <Toast.Body onClick={() =>authContext.user.capabilities.includes('update')? props.handleComplete(item._id):false}>
             <span>
               {item.text}
             </span>
@@ -131,8 +137,9 @@ context.setTaskSum(list.length);//
               difficult:{item.difficulty}
             </small>
           </Toast.Body>
-
+          <Acl capability="update">
           <Button variant="outline-primary" onClick={() => toggle(item._id)} value={item._id}>Edit</Button>
+          </Acl>
         </Toast>
       ))}
 
