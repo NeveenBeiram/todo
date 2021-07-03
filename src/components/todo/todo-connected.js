@@ -7,6 +7,7 @@ import {Badge} from 'react-bootstrap';
 import ContentSetting from './Settings.jsx';//
 
 import './todo.scss';
+import Acl from './acl.jsx'
 
 // const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
@@ -35,9 +36,12 @@ return (
 
       <section className="todo">
 
+        <Acl capability="create">
         <div>
           <TodoForm handleSubmit={_addItem} />
         </div>
+        </Acl>
+
 {/*  */}
         <div>
           <ContentSetting />
